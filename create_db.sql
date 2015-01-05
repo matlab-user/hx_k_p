@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS hx_k_db.dev_t (
 	`d_port` INT DEFAULT -1,
 	`l_ip` VARCHAR(65) DEFAULT '',
 	`l_port` INT DEFAULT -1,
+	`valid` BOOLEAN DEFAULT 1,
 	PRIMARY KEY ( `gid` )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

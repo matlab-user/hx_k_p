@@ -9,9 +9,6 @@ label,button{cursor:pointer}
 h1,h2,h3,h4,h5,h6{font-size:16px;}
 a:link,a:visited{color:#333;text-decoration:none;cursor:pointer;-webkit-transition:.3s ease-in-out;-moz-transition:.3s ease-in-out;-o-transition:.3s ease-in-out;transition:.3s ease-in-out}
 a:hover{color:#009999;text-decoration:none}
-a.color:link,a.color:visited{color:#009999}
-a.color:hover{color:#333}
-.clear{clear:both}
 ::selection{background:#009999;color:#fff}
 ::-moz-selection{background:#009999;color:#fff}
 embed[type="application/thunder_download_plugin"]{display:none}
@@ -22,15 +19,17 @@ div#header a{height:50px;margin:0 10px 0 40px;font-size:17px;font-weight:bold;co
 #header a:hover{color:#eef}
 #header a:active{color:#ddf}
 
+a.b{text-shadow:0 1px 0 rgba(0,0,0,0.4);line-height:40px;text-align:center;display:inline-block;width:80px;height:40px;font-size:17px;color:#ffffff;border-radius:3px;background:rgb(93,154,255);margin:10px 30% 0 0}
+a.b:hover{background:rgba(93,154,255,0.6)}
+a.b:active{opacity:0.5}
+
 #login{font-size:17px;list-style:none;height:180px;margin-top:12%;padding:0 30%}
-#login a.b{text-shadow:0 1px 0 rgba(0,0,0,0.4);line-height:40px;text-align:center;display:inline-block;width:80px;height:40px;font-size:17px;color:#ffffff;border-radius:3px;background:rgb(93,154,255);margin:10px 30% 0 0}
 #login th{text-align:left;width:70%}
 #login .label{text-align:right;width:30%;padding-right:10px}
 #login .button{text-align:right}
 #login input{width:70%;height:32px;margin:15px 0px}
-#login input:focus{box-shadow:0 0 5px rgb(98,157,213)}
-#login a.b:hover{background:rgba(93,154,255,0.6)}
-#login a.b:active{opacity:0.5}
+
+input:focus{box-shadow:0 0 5px rgb(98,157,213)}
 
 #list tr{width:100%;text-align:center;height:40px}
 #list th.name{width:40%}
@@ -41,10 +40,28 @@ div#header a{height:50px;margin:0 10px 0 40px;font-size:17px;font-weight:bold;co
 #list tr:nth-child(even):hover{opacity:0.9}
 #list tr:nth-child(even):active{opacity:0.6}
 
-#data_list tr{width:100%;text-align:center;height:40px}
-#data_list th.name{width:30%}
-#data_list th.value{width:40%}
-#data_list th.time{width:30%}
-#data_list tbody tr:nth-child(even){background:#fdfdfd}
+.three_t tr{width:100%;text-align:center;height:40px}
+.three_t th.name{width:30%}
+.three_t th.value{width:40%}
+.three_t th.time{width:30%}
+.three_t tr:nth-child(even){background:#fdfdfd}
+
+#control_t a.b{margin:10px 0}
+#control_t input{padding:0 5px;width:90px;height:32px;margin:10px 15px;border:solid 1px rgb(98,157,213);box-shadow:inset 0 0 2px rgb(98,157,213)}
+#control_t input:focus{box-shadow:0 0 5px rgb(98,157,213)}
+
+.type1 tr.user_admin,.type1 tr.user_admin_h{background:#f0f0f0}
+.type1 tr.user_admin{text-align:right}
+.type1 tr.user_admin .value{padding:10px 20px;text-align:left}
+.type1 input{width:60%;height:32px;padding-left:10px}
+.type1 a{margin:10px 15px 20px 0}
+.type1 input[type="checkbox"]{margin:0 7px 0 20px;width:20px;height:20px;position:relative;top:6px}
+
+.type2 tr.user_admin,.type2 tr.user_admin_h{background:#e0e0e0}
+.type2 tr.user_admin{text-align:right}
+.type2 tr.user_admin .value{padding:10px 20px;text-align:left}
+.type2 input{width:60%;height:32px;padding-left:10px}
+.type2 a{margin-right:15px}
+.type2 input[type="checkbox"]{margin:0 7px 0 20px;width:20px;height:20px;position:relative;top:6px}
 
 div.flot_div{background:#fff;padding-top:10px;height:200px}
