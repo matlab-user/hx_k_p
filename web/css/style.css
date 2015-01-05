@@ -1,7 +1,7 @@
 
 *{margin:0;padding:0;border:0}
 html{-webkit-text-size-adjust:none}
-body{margin:0 auto;color:#333;background:#e0e0e0;font-size:14px;font-family:"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;line-height:24px;cursor:default}
+body{min-width:1000px;margin:0 auto;color:#333;background:#e0e0e0;font-size:14px;font-family:"Microsoft Yahei","Helvetica Neue",Helvetica,Arial,sans-serif;line-height:24px;cursor:default}
 input,textarea,button{outline:0;border-radius:2px;font-size:14px;font-family:"Microsoft Yahei","Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;-webkit-appearance:none}
 input[type="checkbox"]{-webkit-appearance:checkbox}
 textarea{resize:none}
@@ -25,7 +25,7 @@ a.b:active{opacity:0.5}
 
 #login{font-size:17px;list-style:none;height:180px;margin-top:12%;padding:0 30%}
 #login th{text-align:left;width:70%}
-#login .label{text-align:right;width:30%;padding-right:10px}
+#login .label{text-align:right;width:30%;padding-right:10px;min-width:60px}
 #login .button{text-align:right}
 #login input{width:70%;height:32px;margin:15px 0px}
 
@@ -41,8 +41,8 @@ input:focus{box-shadow:0 0 5px rgb(98,157,213)}
 #list tr:nth-child(even):active{opacity:0.6}
 
 .three_t tr{width:100%;text-align:center;height:40px}
-.three_t th.name{width:30%}
-.three_t th.value{width:40%}
+.three_t th.name{width:25%}
+.three_t th.value{width:45%}
 .three_t th.time{width:30%}
 .three_t tr:nth-child(even){background:#fdfdfd}
 
