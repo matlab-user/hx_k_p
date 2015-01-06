@@ -53,7 +53,7 @@ input:focus{box-shadow:0 0 5px rgb(98,157,213)}
 .type1 tr.user_admin,.type1 tr.user_admin_h{background:#f0f0f0}
 .type1 tr.user_admin{text-align:right}
 .type1 tr.user_admin .value{padding:10px 20px;text-align:left}
-.type1 input{width:60%;height:32px;padding-left:10px}
+.type1 input,.type1 select{width:60%;height:32px;padding-left:10px}
 .type1 a{margin:10px 15px 20px 0}
 .type1 input[type="checkbox"]{margin:0 7px 0 20px;width:20px;height:20px;position:relative;top:6px}
 
@@ -63,5 +63,9 @@ input:focus{box-shadow:0 0 5px rgb(98,157,213)}
 .type2 input{width:60%;height:32px;padding-left:10px}
 .type2 a{margin-right:15px}
 .type2 input[type="checkbox"]{margin:0 7px 0 20px;width:20px;height:20px;position:relative;top:6px}
+
+.user_t th.name{width:15%}
+.user_t th.value{width:55%}
+.user_t th.time{width:40%}
 
 div.flot_div{background:#fff;padding-top:10px;height:200px}
