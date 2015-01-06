@@ -1,12 +1,14 @@
 <?php
 /*
 	<xml>
-		<d id='××'>
+		<d id=××>
 			<n>name</n>
+			<t>type</t>
 			<v>valid</v>
 		</d>
 		<d id='××'>
 			<n>name</n>
+			<t>type</t>
 			<v>valid</v>
 		</d>
 	</xml>
@@ -23,11 +25,12 @@
 
 	mysql_query("SET NAMES 'utf8'", $con);
 	
-	$res = mysql_query( "SELECT gid, name, valid FROM hx_k_db.dev_t LIMIT 100", $con );
+	$res = mysql_query( "SELECT id, name, valid, type FROM hx_k_db.user_t LIMIT 100", $con );
 	while( $row = mysql_fetch_array( $res ) ) {
 		$xml .= '<d id='.$row[0].'>';
 		$xml .= '<n>'.$row[1].'</n>';
 		$xml .= '<v>'.$row[2].'</v>';
+		$xml .= '<t>'.$row[3].'</t>';
 		$xml .= '</d>';
 	}
 	$xml .= '</xml>';

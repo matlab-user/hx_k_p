@@ -27,7 +27,7 @@ a.b:active{opacity:0.5}
 #login th{text-align:left;width:70%}
 #login .label{text-align:right;width:30%;padding-right:10px;min-width:60px}
 #login .button{text-align:right}
-#login input{width:70%;height:32px;margin:15px 0px}
+#login input{width:70%;height:32px;margin:15px 0px;padding-left:10px}
 
 input:focus{box-shadow:0 0 5px rgb(98,157,213)}
 
