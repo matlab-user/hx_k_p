@@ -13,7 +13,7 @@ a:hover{color:#009999;text-decoration:none}
 ::-moz-selection{background:#009999;color:#fff}
 embed[type="application/thunder_download_plugin"]{display:none}
 
-table{width:100%}
+#login{width:100%}
 div#header{width:100%;background:rgb(98,157,213);height:50px;line-height:50px;}
 div#header a{height:50px;margin:0 10px 0 40px;font-size:17px;font-weight:bold;color:#fff}
 #header a:hover{color:#eef}
@@ -40,6 +40,7 @@ input:focus{box-shadow:0 0 5px rgb(98,157,213)}
 #list tr:nth-child(even):hover{opacity:0.9}
 #list tr:nth-child(even):active{opacity:0.6}
 
+.three_t{width:100%}
 .three_t tr{width:100%;text-align:center;height:40px}
 .three_t th.name{width:25%}
 .three_t th.value{width:45%}
@@ -69,3 +70,5 @@ input:focus{box-shadow:0 0 5px rgb(98,157,213)}
 .user_t th.time{width:40%}
 
 div.flot_div{background:#fff;padding-top:10px;height:200px}
+div.flot_div .fdiv{padding:10px 20px;max-height:300px}
+div.flot_div .fdiv:nth-child(odd){background:#fdfdfd}

@@ -1,16 +1,16 @@
 function client2()
 
-    %host = '192.168.1.24';
-    host = 'www.swaytech.biz';
+    host = '192.168.1.24';
+    %host = 'www.swaytech.biz';
     port = 1091;
 
-for j = 1 : 300
+for j = 1 : 400
     u = udp( host, port );
     fopen( u );    
     fwrite( u, 'wdh' );
     
     disp( 'start UDP' );
-    for i=1:4
+    for i=1:1
         A = fread( u, 1, 'char' );
         if isempty(A)
             i
@@ -26,5 +26,5 @@ for j = 1 : 300
     fclose( u );
     delete( u );
     
-    pause(1);
+    %pause(1);
 end

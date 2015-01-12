@@ -9,13 +9,27 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<!--<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>-->
 		<script src="js-lib/jquery-2.1.1.min.js"></script>
-		
-		<!--<script src="js-lib/jquery.base64.js"></script>-->
-			
+		<script src="js-lib/jquery.flot.js"></script>
+		<script src="js-lib/jquery.flot.time.js"></script>
+		<script src="my-js/data_show/funs.js"></script>
+				
 		<script>
-			$( function() {
-	
+			var dev = new Object();
+			dev.t = new Array();
+			dev.p = new Array();
+			dev.temp = new Array();
+			dev.r = new Array();
 			
+			$( function() {
+				var mid_s1 = (location.href).split("?");
+				if( mid_s1.length>1 ) {
+					var mid_s2 = mid_s1[1].split("=");
+					if( mid_s2.length>2 ) {
+						dev.gid = mid_s2[1].split("&")[0];
+						dev.name = decodeURI( mid_s2[2] );
+						init();
+					}
+				}
 				
 			} );
 		</script>
@@ -26,7 +40,7 @@
 		
     </head>
 	
-	<body>
+	<body style="overflow-x:hidden">
 		<div id='header'>
 			<a>首页</a>
 			<a href='admin.html'>管理</a>
@@ -43,6 +57,12 @@
 				<tr><th class='name'>阻力</th><th class='value'></th><th class='time'></th></tr>
 			</tbody>
 		</table>
-		<div class='flot_div'></div>
+		<div style="width:98%;height:0;margin:0 0.7%;border:1px solid rgb(98,157,213)"></div>
+		<div class='flot_div' id='f_div'>
+			<div class='fdiv' id='p_flot'></div>
+			<div class='fdiv' id='temp_flot'></div>
+			<div class='fdiv' id='f_flot'></div>
+			<div class='fdiv' id='r_flot'></div>
+		</div>
 	</body>
 </html>

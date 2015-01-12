@@ -17,24 +17,24 @@
 // 					funs
 //--------------------------------------------------------------------------------------------
 function send_cmd( $sudp, $to_ip, $to_port ) {
-
-	$msg = "ABCDEFGHI1234567890";	
-	$sock_data = socket_sendto( $sudp, $msg, strlen($msg), 0, $to_ip, $to_port ); 
-	echo "UDP send---".$sock_data."     msg---".$msg."\n";
-	
-	$r = array( $sudp );
-	$w = NULL;
-	$e = NULL;
-	
-	$num = socket_select( $r, $w, $e, 10 );
-	if( $num===false )
-		echo "socket_select() failed, reason: ".socket_strerror(socket_last_error())."\n";
-	elseif( $num>=0 ) {
-		if( $num>0 ) {
-			socket_recvfrom( $sudp, $buf, 4, 0, $to_ip, $to_port );
-			echo "op_res---".$buf."\n";
+ 		
+		$msg = "ABCDEFGHI1234567890";	
+		$sock_data = socket_sendto( $sudp, $msg, strlen($msg), 0, $to_ip, $to_port ); 
+		echo "UDP send---".$sock_data."     msg---".$msg."\n";
+		
+		$r = array( $sudp );
+		$w = NULL;
+		$e = NULL;
+		
+		$num = socket_select( $r, $w, $e, 10 );
+		if( $num===false )
+			echo "socket_select() failed, reason: ".socket_strerror(socket_last_error())."\n";
+		elseif( $num>=0 ) {
+			if( $num>0 ) {
+				socket_recvfrom( $sudp, $buf, 4, 0, $to_ip, $to_port );
+				echo "op_res---".$buf."\n";
+			}
 		}
-	}
 } 
 
 /** 
