@@ -70,6 +70,7 @@ input:focus{box-shadow:0 0 5px rgb(98,157,213)}
 .user_t th.time{width:40%}
 
 #user_res{text-align:left}
+#dev_res{text-align:left}
 
 div.flot_div{background:#fff;padding-top:10px;height:200px}
 div.flot_div .fdiv{padding:10px 20px;max-height:300px}

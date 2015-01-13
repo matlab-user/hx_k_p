@@ -46,7 +46,6 @@ function init() {
 	});
 	
 	update();
-	setInterval( "update();setInterval( 'update()', 50*1000 );", 50*1000 );
 }
 
 function update() {
@@ -72,6 +71,8 @@ function update() {
 			dev.t[0] = lt;
 		}
 	} );
+	
+	setTimeout( "update()", 30*1000 );
 }
 
 function add_flot( flot_holder ) {

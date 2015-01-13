@@ -38,16 +38,16 @@
 					</select>
 				</th><th class='time'></th></tr>
 				<tr class='user_admin'><th class='name'>密码:</th><th class='value'><input id='user_key' type='text'/><input id='user_valid' type='checkbox' checked/>启用</th><th id='user_res' class='time'></th></tr>
-				<tr class='user_admin'><th class='name'></th><th class='value' style="padding-left:50px;text-align:left"><a class='b' id='user_add'>添加</a><a id='user_search' class='b'>查找</a><a class='b'>修改</a></th><th class='time'></th></tr>
+				<tr class='user_admin'><th class='name'></th><th class='value' style="padding-left:50px;text-align:left"><a class='b' id='user_add'>添加</a><a id='user_search' class='b'>查找</a><a id='user_update' class='b'>修改</a><a href='users_list.html' target='_blank' style="margin-left:40px">用户列表</a></th><th class='time'></th></tr>
 			</tbody>
 		</table>
 		
 		<table id='admin_t2' class='three_t type2' cellspacing="0">
 			<tbody>
 				<tr class='user_admin_h' style="height:80px"><th class='name' style="font-size:19px">设备管理</th><th class='value'></th><th class='time'></th></tr>
-				<tr class='user_admin'><th class='name'>GUID:</th><th class='value'><input type='text'/></th><th class='time'></th></tr>
-				<tr class='user_admin'><th class='name'>名称:</th><th class='value'><input type='text'/><input type='checkbox' checked/>启用</th><th class='time'></th></tr>
-				<tr class='user_admin'><th class='name'></th><th class='value' style="padding-left:50px;text-align:left"><a class='b'>添加</a><a class='b'>查找</a><a class='b'>修改</a></th><th class='time'></th></tr>
+				<tr class='user_admin'><th class='name'>GUID:</th><th class='value'><input id='dev_guid' type='text'/></th><th class='time'></th></tr>
+				<tr class='user_admin'><th class='name'>名称:</th><th class='value'><input id='dev_name' type='text'/><input id='dev_valid' type='checkbox' checked/>启用</th><th class='time'></th></tr>
+				<tr class='user_admin'><th class='name'></th><th class='value' style="padding-left:50px;text-align:left"><a id='dev_add' class='b'>添加</a><a id='dev_search' class='b'>查找</a><a id='dev_update' class='b'>修改</a></th><th id='dev_res' class='time'></th></tr>
 			</tbody>
 		</table>
 	</body>

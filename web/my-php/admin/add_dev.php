@@ -1,6 +1,6 @@
 <?php
 
-	if( !isset($_POST['name']) || !isset($_POST['type']) || !isset($_POST['key']) || !isset($_POST['valid']) ) {
+	if( !isset($_POST['name']) || !isset($_POST['guid']) || !isset($_POST['valid']) ) {
 		echo 'no';
 		exit;
 	}
@@ -16,7 +16,7 @@
 	else
 		$valid = 0;
 	
-	$sql_str = "INSERT INTO hx_k_db.user_t (name,passwd,type,valid) VALUES ('".$_POST['name']."', MD5('".$_POST['name'].$_POST['key']."'), '".$_POST['type']."',".$valid." )";
+	$sql_str = "INSERT INTO hx_k_db.dev_t (name,gid,valid) VALUES ('".$_POST['name']."','".$_POST['guid']."',".$valid." )";
 	$res = mysql_query( $sql_str, $con );
 	mysql_free_result ( $res );
 		
