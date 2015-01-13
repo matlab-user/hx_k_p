@@ -14,6 +14,12 @@
 	注： 设备默认是按照 东八区 时区显示数据
 */
 function init() {
+	
+	if( $('#tooltip').length<=0 ) {
+		$('body').append( $('<div id="tooltip"></div>') );
+		$('#tooltip').hide();
+	}
+	
 	var p_flot = $('.fdiv');
 	p_flot.css( {'outerWidth':'100%'} );
 	p_flot.height( p_flot.width()*0.52 );
@@ -23,8 +29,48 @@ function init() {
 	dev.temp_plot = add_flot( 'f_flot' );
 	dev.r_plot = add_flot( 'r_flot' );
 	
-	$.post( 'my-php/data_show/get_data.php',{'g1':dev.gid,'t':0}, function( data ) {
-		parse_xml( data );
+	$(".fdiv").bind("plothover", function (event, pos, item) {
+		if (item) {
+			var x = item.datapoint[0],
+				y = item.datapoint[1].toFixed(2);
+			
+			var d = new Date( x );   
+			var hour = d.getUTCHours();     
+			var minute = d.getUTCMinutes();     
+			var date_str = hour+':'+minute+':'+d.getUTCSeconds();
+			
+			$("#tooltip").html( 'x= ' + date_str + " y= " + y)
+				.css({top: item.pageY+5, left: item.pageX+5}).show();
+		} else
+			$("#tooltip").hide();
+	});
+	
+	update();
+	setInterval( "update();setInterval( 'update()', 50*1000 );", 50*1000 );
+}
+
+function update() {
+	var lt = dev.t[dev.t.length-1];
+	$.post( 'my-php/data_show/get_data.php',{'g1':dev.gid,'t':lt}, function( data ) {
+		if( parse_xml(data) ) {
+			update_latest_value();
+			
+			update_flot( dev.p_plot, dev.p, dev.t );
+			dev.p = [];
+			
+			update_flot( dev.temp_plot, dev.temp, dev.t );
+			dev.temp = [];
+			
+			update_flot( dev.f_plot, dev.f, dev.t );
+			dev.f = [];
+			
+			update_flot( dev.r_plot, dev.r, dev.t );	
+			dev.r = [];
+			
+			var lt = dev.t[dev.t.length-1];
+			dev.t = [];
+			dev.t[0] = lt;
+		}
 	} );
 }
 
@@ -59,7 +105,7 @@ function add_flot( flot_holder ) {
 	}
 	
 	var d = new Date();
-	var st = d.getTime()/1000 + 8*3600;	// 当前电站本地时间，秒为单位
+	var st = d.getTime()/1000 + dev.tz*3600;	// 当前电站本地时间，秒为单位
 	d.setTime( st*1000 );
 	var now_UTC_day = d.getUTCDate();
 	var now_UTC_month = d.getUTCMonth();
@@ -80,10 +126,10 @@ function add_flot( flot_holder ) {
 		xaxis: {
 			tickLength: 0,
 			mode: "time",
-			timeformat: "%H:%M",
-			minTickSize: [5, 'minute'],
-			min: Date.UTC(now_UTC_year,now_UTC_month,now_UTC_day,0,0),
-			max: Date.UTC(now_UTC_year,now_UTC_month,now_UTC_day,23,59),
+			timeformat: "%m-%d %H:%M",
+			minTickSize: [30, 'minute'],
+			//min: Date.UTC(now_UTC_year,now_UTC_month,now_UTC_day,0,0),
+			//max: Date.UTC(now_UTC_year,now_UTC_month,now_UTC_day,23,59),
 		},
 		shadowSize: 0,
 		colors: [ flot_color[c_id] ],
@@ -139,7 +185,7 @@ function parse_xml( responseTxt ) {
 				vn = v1.text();
 			else {
 				if(i==0)
-					dev.t = parseInt( v1.attr('t') );
+					dev.t[index-1] = parseInt( v1.attr('t') );
 				sp[index-1] = parseFloat( v1.text() );
 			}
 		} );
@@ -149,20 +195,76 @@ function parse_xml( responseTxt ) {
 				dev.p = sp;
 				break;
 			case '温度':
-				//console.log(sp)
 				dev.temp = sp;
 				break;
 			case '流量':
-				//console.log(sp)
 				dev.f = sp;
 				break;
 			case '阻力':
-				//console.log(sp)
 				dev.r = sp;
 				break;
 		}
 	} );
-
 	return true;
+}
+
+function update_flot( plot, data, t ) {
+
+	var dataset = plot.getData();
+	var series = dataset[0];
+	var i = t.length, loop = data.length;
 	
+	if( i>loop )
+		var mt = t.slice(i-loop, i-1);
+	else
+		var mt = t.slice(0);
+	
+	if ( loop>0 ) {
+		for (i=0; i<loop; i++)
+			series.data.push( [(mt[i]+dev.tz*3600)*1000,data[i]] );	
+		plot.setData( [series] );
+		plot.setupGrid();
+		plot.draw();
+	}
+}
+
+function update_latest_value() {
+	var t = dev.t[dev.t.length-1];	
+	var t_str = formatDate( t+dev.tz*3600 );
+	
+	var vl = dev.p.length;
+	if( vl>0 ) {
+		$('#pv').html( dev.p[vl-1].toFixed(2) );
+		$('#pvt').html( t_str );
+	}
+		
+	vl = dev.f.length;
+	if( vl>0 ) {
+		$('#fv').html( dev.f[vl-1].toFixed(2) );
+		$('#fvt').html( t_str );
+	}
+		
+	vl = dev.temp.length;
+	if( vl>0 ) {
+		$('#tv').html( dev.temp[vl-1].toFixed(2) );
+		$('#tvt').html( t_str );
+	}
+		
+	vl = dev.r.length;
+	if( vl>0 ) {
+		$('#rv').html( dev.r[vl-1].toFixed(2) );
+		$('#rvt').html( t_str );
+	}
+}
+
+// UTC - 单位为: 秒
+function formatDate( UTC ) {
+	var d = new Date( UTC*1000 );
+	var year = d.getUTCFullYear();     
+	var month = d.getUTCMonth() + 1;     
+	var date = d.getUTCDate();     
+	var hour = d.getUTCHours();     
+	var minute = d.getUTCMinutes();     
+	var second = d.getUTCSeconds();     
+	return   year+"-"+month+"-"+date+"   "+hour+":"+minute+":"+second;     
 }

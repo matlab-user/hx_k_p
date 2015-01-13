@@ -9,17 +9,12 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<!--<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>-->
 		<script src="js-lib/jquery-2.1.1.min.js"></script>
-		
-		<!--<script src="js-lib/jquery.base64.js"></script>-->
+		<script src="my-js/admin/funs.js"></script>
 			
 		<script>
-			
 			$( function() {
-	
-			
-				
-			} );
-			
+				init();
+			} );	
 		</script>		
 		
     </head>
@@ -35,15 +30,15 @@
 		<table id='admin_t1' class='three_t type1' cellspacing="0">
 			<tbody>
 				<tr class='user_admin_h' style="height:80px"><th class='name' style="font-size:19px"><a href="user_list.html" target="_blank" style="margin:0">用户管理</a></th><th class='value'></th><th class='time'></th></tr>
-				<tr class='user_admin'><th class='name'>用户名:</th><th class='value'><input type='text'/></th><th class='time'></th></tr>
+				<tr class='user_admin'><th class='name'>用户名:</th><th class='value'><input id='user_name' type='text'/></th><th class='time'></th></tr>
 				<tr class='user_admin'><th class='name'>类型:</th><th class='value'>
-					<select style="font-size:17px;font-family:'Microsoft Yahei'">
+					<select id='user_type' style="font-size:17px;font-family:'Microsoft Yahei'">
 						<option value="admin">管理员</option>
 						<option value="normal" selected="selected">普通用户</option>
 					</select>
 				</th><th class='time'></th></tr>
-				<tr class='user_admin'><th class='name'>密码:</th><th class='value'><input type='text'/><input type='checkbox' checked/>启用</th><th class='time'></th></tr>
-				<tr class='user_admin'><th class='name'></th><th class='value' style="padding-left:50px;text-align:left"><a class='b'>添加</a><a class='b'>查找</a><a class='b'>修改</a></th><th class='time'></th></tr>
+				<tr class='user_admin'><th class='name'>密码:</th><th class='value'><input id='user_key' type='text'/><input id='user_valid' type='checkbox' checked/>启用</th><th id='user_res' class='time'></th></tr>
+				<tr class='user_admin'><th class='name'></th><th class='value' style="padding-left:50px;text-align:left"><a class='b' id='user_add'>添加</a><a id='user_search' class='b'>查找</a><a class='b'>修改</a></th><th class='time'></th></tr>
 			</tbody>
 		</table>
 		

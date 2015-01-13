@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS `hx_k_db` DEFAULT CHARACTER SET `utf8`;
 
 CREATE TABLE IF NOT EXISTS hx_k_db.user_t (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(60) DEFAULT 'Anonymous',
+	`name` VARCHAR(60) DEFAULT 'Anonymous' UNIQUE,
 	`passwd` VARCHAR(32) NOT NULL DEFAULT 'NULL',
 	`type` ENUM('admin','normal') NOT NULL DEFAULT 'normal',
 	`valid` BOOLEAN DEFAULT 1,
