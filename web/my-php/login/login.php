@@ -1,5 +1,7 @@
 <?php
 
+	session_start();
+	
 	if( !(isset($_POST['n']) && isset($_POST['p'])) )
 		exit;
 	
@@ -23,11 +25,12 @@
 	$temp = md5( $_POST['n'].$_POST['p'] );
 	if( $temp===$row[0] ) {
 		$_SESSION['login'] = 1;
-		if( $row[1]=='admin' ) {
+		$_SESSION['user'] = $_POST['n'];
+		if( $row[1]=='admin' )
 			$_SESSION['admin'] = 1;
-			echo 'devs_list.html?t=a';
-		}
-		else
-			echo 'devs_list.html?t=n';
+		else 
+			$_SESSION['admin'] = 0;
+
+		echo 'devs_list.html';
 	}
 ?>

@@ -1,7 +1,7 @@
 <?php
 /*
 	JSON 格式举例
-	'{"type":"admin","valid":"1"}'
+	{"type":"admin","valid":"1"}
 */
 	if( !isset($_POST['name']) ) {
 		echo 'no';

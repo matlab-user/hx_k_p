@@ -10,23 +10,16 @@
 		<!--<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>-->
 		<script src="js-lib/jquery-2.1.1.min.js"></script>
 		<script src="my-js/devs_list/funs.js"></script>
-
+		<script src="my-js/get_user.js"></script>
+		
 		<script>
 			var dev = new Array();
-			var url = location.href;
-			url = url.split('?');
+			var user = new Object();
+			
+			get_user();
 			
 			$( function() {
-				
-				if( url.length>1 ) {
-					var para = url[1];
-					para = para.split('=');
-					if( para.length>1 ) {
-						if( para[1]!='a' )
-							$('#admin_a').hide();
-					}
-				}
-				
+						
 				get_devs_info();
 				
 				$('#list').click( function(e) {
@@ -34,7 +27,9 @@
 					if( isNaN(index)==0 )
 						location.href = 'data_show.html?gid='+dev[index].gid+"&n="+dev[index].name;
 				} );
-						
+				
+				$('#logout_a').click( function() { logout(); } );
+				
 			} );
 		</script>
 		
@@ -45,7 +40,7 @@
 			<a>首页</a>
 			<a id='admin_a' href='admin.html'>管理</a>
 			<a id='num' style="font-weight:normal;margin-left:20%">设备总数量:10台</a>
-			<a style="position:absolute;right:20px">注销</a>
+			<a id='logout_a' style="position:absolute;right:20px">注销</a>
 		</div>
 		
 		<table id='list' cellspacing="0" style="width:100%">

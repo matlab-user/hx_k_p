@@ -10,7 +10,9 @@
 		.f_plot
 		.temp_plot
 		.r_plot
-		
+	
+	user.name
+		.type  1-admin
 	注： 设备默认是按照 东八区 时区显示数据
 */
 function init() {

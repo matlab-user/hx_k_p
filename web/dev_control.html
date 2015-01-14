@@ -9,15 +9,31 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<!--<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>-->
 		<script src="js-lib/jquery-2.1.1.min.js"></script>
-		
-		<!--<script src="js-lib/jquery.base64.js"></script>-->
-			
-		<script>
-						
-			$( function() {
+		<script src="my-js/get_user.js"></script>
+		<script src="my-js/dev_control/funs.js"></script>
 	
-			
+		<script>
+			var user = new Object();
+			var dev = new Object();
+						
+			get_user();
+					
+			$( function() {
+				var mid_s1 = (location.href).split("?");
+				if( mid_s1.length>1 ) {
+					var mid_s2 = mid_s1[1].split("=");
+					if( mid_s2.length>2 ) {
+						dev.gid = mid_s2[1].split("&")[0];
+						dev.name = decodeURI( mid_s2[2] );
+						
+						$('#dev_info').html('设备名称:&nbsp;'+dev.name+"&nbsp;&nbsp;ID:&nbsp;"+dev.gid);	
+					}	
+					$('#logout_a').click( function() { logout(); } );					
+				}
 				
+				init();
+				$('#logout_a').click( function() { logout(); } );
+
 			} );
 			
 		</script>
@@ -31,19 +47,20 @@
 	<body style="overflow-x:hidden">
 		<div id='header'>
 			<a href='devs_list.html'>首页</a>
-			<a href='admin.html'>管理</a>
+			<a id='admin_a' href='admin.html'>管理</a>
 			<a>控制</a>
-			<a style="position:absolute;right:20px">注销</a>
+			<a id='dev_info' style="font-weight:normal;margin-left:20%"></a>
+			<a id='logout_a' style="position:absolute;right:20px">注销</a>
 		</div>
 		
 		<table id='control_t' class='three_t' cellspacing="0">
 			<tbody>
 				<tr><th class='name'>操作名称</th><th class='value'>输入参数</th><th class='time'>结果反馈</th></tr>
-				<tr><th class='name'>开机</th><th class='value'><a class='b'>开机</a></th><th class='time'></th></tr>
-				<tr><th class='name'>关机</th><th class='value'><a class='b'>关机</a></th><th class='time'></th></tr>
-				<tr><th class='name'>压力设定</th><th class='value'><input type='text'/><a class='b'>设置</a></th><th class='time'></th></tr>
-				<tr><th class='name'>温度设定</th><th class='value'><input type='text'/><a class='b'>设置</a></th><th class='time'></th></tr>
-				<tr><th class='name'>流量设定</th><th class='value'><input type='text'/><a class='b'>设置</a></th><th class='time'></th></tr>
+				<tr><th class='name'>开机</th><th class='value'><a id='open_a' class='b'>开机</a></th><th class='time'></th></tr>
+				<tr><th class='name'>关机</th><th class='value'><a id='close_a' class='b'>关机</a></th><th class='time'></th></tr>
+				<tr><th class='name'>压力设定</th><th class='value'><input id='p_val' type='text'/><a id='p_set_a' class='b'>设置</a></th><th class='time'></th></tr>
+				<tr><th class='name'>温度设定</th><th class='value'><input id='t_val' type='text'/><a id='t_set_a' class='b'>设置</a></th><th class='time'></th></tr>
+				<tr><th class='name'>流量设定</th><th class='value'><input id='f_val' type='text'/><a id='f_set_a' class='b'>设置</a></th><th class='time'></th></tr>
 			</tbody>
 		</table>
 	</body>

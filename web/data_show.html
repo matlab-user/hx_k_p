@@ -12,8 +12,11 @@
 		<script src="js-lib/jquery.flot.js"></script>
 		<script src="js-lib/jquery.flot.time.js"></script>
 		<script src="my-js/data_show/funs.js"></script>
+		<script src="my-js/get_user.js"></script>
 				
 		<script>
+			var user = new Object();
+			
 			var dev = new Object();
 			dev.t = new Array();
 			dev.t[0] = 0;
@@ -23,6 +26,8 @@
 			dev.r = new Array();
 			dev.tz = 8;
 			
+			get_user();
+			
 			$( function() {
 				var mid_s1 = (location.href).split("?");
 				if( mid_s1.length>1 ) {
@@ -30,11 +35,17 @@
 					if( mid_s2.length>2 ) {
 						dev.gid = mid_s2[1].split("&")[0];
 						dev.name = decodeURI( mid_s2[2] );
+						
+						$('#dev_info').html('设备名称:&nbsp;'+dev.name+"&nbsp;&nbsp;ID:&nbsp;"+dev.gid);
+											
+						var mid_str = $('#dev_control').attr('href');
+						$('#dev_control').attr( 'href', mid_str+"?gid="+dev.gid+"&n="+dev.name );
 					}
-					init();
+					init();		
+					$('#logout_a').click( function() { logout(); } );					
 				}
-				
 			} );
+			
 		</script>
 		
 		<script>
@@ -46,9 +57,10 @@
 	<body style="overflow-x:hidden">
 		<div id='header'>
 			<a href='devs_list.html'>首页</a>
-			<a href='admin.html'>管理</a>
-			<a href="dev_control.html" target='_blank'>控制</a>
-			<a style="position:absolute;right:20px">注销</a>
+			<a id='admin_a' href='admin.html' target='_blank'>管理</a>
+			<a id='dev_control' href="dev_control.html" target='_blank'>控制</a>
+			<a id='dev_info' style="font-weight:normal;margin-left:20%"></a>
+			<a id='logout_a' style="position:absolute;right:20px">注销</a>
 		</div>
 		
 		<table id='data_list' class='three_t' cellspacing="0">
