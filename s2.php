@@ -81,7 +81,7 @@ function udp_server_loop($address, $port) {
 			if( $num_changed_sockets>0 ) {
 				$from = '';
 				$r_port = 0;
-				socket_recvfrom( $r[0], $buf, 12, 0, $from, $r_port );
+				socket_recvfrom( $r[0], $buf, 30, 0, $from, $r_port );
 				echo "sssss--".$buf."\n";
 				echo "ffffff--".$from."      ".$r_port."\n";
 				
