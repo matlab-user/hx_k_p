@@ -7,8 +7,8 @@
 	$mysql_pass = 'blue';				// 数据库访问密钥
 	$port = 1024;
 	
-	parse_data( '[s001,0,12,1,2,3,4]' );
-	exit;
+	//parse_data( '[s001,0,12,1,2,3,4]' );
+	//exit;
 	
 START:
 	$socket = socket_create( AF_INET, SOCK_DGRAM, SOL_UDP );
@@ -22,6 +22,8 @@ START:
 		echo 'Unable to get socket option: '. socket_strerror(socket_last_error()).PHP_EOL;
 	elseif( $rval!==0 )
 		echo 'SO_REUSEADDR is set on socket !'.PHP_EOL;
+		
+	socket_set_option( $socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>2, "usec"=>0 ) );
 
 	$ok = socket_bind( $socket, '0.0.0.0', $port );
 	if( $ok===false ) {
@@ -35,6 +37,8 @@ START:
 	socket_close( $socket );
 	exit;
 */	
+	echo "The udp server is running!\n";
+	
 	while( true ) {
 		
 		$r = array( $socket );
@@ -59,6 +63,7 @@ START:
 						case 'D':					// 解析数据
 							parse_data( $buf );
 							break;
+							
 						case 'I':					// 解析设备ip、port
 							$gid = parse_I( $buf );
 							socket_getsockname ( $socket, $A, $P );
@@ -66,13 +71,33 @@ START:
 							save_local_ip_port( $gid, $A, $P );
 							save_remote_ip_port( $gid, $to_ip, $to_port );
 							break;
+							
 						case 'S':					// 客户发送指令
 							parse_S( $buf, $gid, $cmd );
+							$r_ip = '';
+							$r_port = '';
 							get_remote_ip_port( $gid, $r_ip, $r_port );
+							if( empty($r_ip) ) {
+								$msg = 'FAIL';
+								goto LP1;
+							}
+							
 							socket_sendto( $socket, $cmd, strlen($cmd), 0, $r_ip, $r_port ); 
-							$msg = 'OK';
-							socket_sendto( $socket, $msg, strlen($msg), 0, $to_ip, $to_port ); 
+							echo 'I have send the cmd:'.$cmd."\n";
+							
+							$buf = '';
+							$rev_num = socket_recvfrom( $socket, $buf, 20, 0, $r_ip, $r_port );
+							$msg = 'FAIL';
+							if( $rev_num==True ) {
+								if( $buf==='OK' )
+									$msg = 'OK';
+							}
+							
+						LP1:
+							echo $msg."\n";
+							socket_sendto( $socket, $msg, strlen($msg), 0, $to_ip, $to_port ); 						
 							break;
+							
 						default:
 							break;
 					}
