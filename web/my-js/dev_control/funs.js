@@ -7,11 +7,11 @@ function init() {
 }
 
 function open() {
-	send_order( 'open', val );	
+	send_order( 'open', '' );	
 }
 
 function close() {
-	send_order( 'close', val );
+	send_order( 'close', '' );
 }
 
 function p_set() {
@@ -37,36 +37,54 @@ function f_set() {
 
 /*
 	order - open, close, p_set, f_set, t_set
-	最终指令为：[guid,utc_sec,order,para]
+	最终指令为：S[guid,order,para]
 */
 function send_order( order, para ) {
 	
 	var num_args = arguments.length;
 	var d = new Date();
 
-	var order_str = '['+dev.gid+','+Math.round(d.getTime()/1000)+',';
-
+	//var order_str = 'S['+dev.gid+','+Math.round(d.getTime()/1000)+',';
+	var order_str = 'S['+dev.gid+',';
+	var res_h;
+	
 	switch( order ) {
 		case 'open':
 			order_str = order_str + 'open]';
+			res_h = $('#open_res');
 			break;	
 		case 'close':
 			order_str = order_str + 'close]';
+			res_h = $('#close_res');
 			break;	
 		case 'p_set':
 			order_str += 'p_set,' + arguments[1]+']';
+			res_h = $('#p_res');
 			break;
 		case 't_set':
 			order_str += 't_set,' + arguments[1]+']';
+			res_h = $('#t_res');
 			break;	
 		case 'f_set':
 			order_str += 'f_set,' + arguments[1]+']';
+			res_h = $('#f_res');
 			break;
 	}
 	
 	$.post( 'my-php/dev_control/send_order.php',{'dev':dev.gid,'order':order_str},function(data) {
-		
-		
-	} );
+		switch( data ) {
+			case'OK':
+				res_h.text('成功');
+				res_h.delay(3000).fadeIn(function(){$(this).text('');});
+				break;
+			default:
+				res_h.text('失败');
+				res_h.delay(3000).fadeIn(function(){$(this).text('');});
+				break;
+		}
+	}).fail(function() {
+			res_h.text('失败');
+			res_h.delay(3000).fadeIn(function(){$(this).text('');});
+		});
 	
 }
