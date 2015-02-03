@@ -58,15 +58,15 @@ function send_order( order, para ) {
 			res_h = $('#close_res');
 			break;	
 		case 'p_set':
-			order_str += 'p_set,' + arguments[1]+']';
+			order_str += 'set p ' + arguments[1]+']';
 			res_h = $('#p_res');
 			break;
 		case 't_set':
-			order_str += 't_set,' + arguments[1]+']';
+			order_str += 'set t ' + arguments[1]+']';
 			res_h = $('#t_res');
 			break;	
 		case 'f_set':
-			order_str += 'f_set,' + arguments[1]+']';
+			order_str += 'set f ' + arguments[1]+']';
 			res_h = $('#f_res');
 			break;
 	}

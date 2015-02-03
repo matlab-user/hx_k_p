@@ -1,8 +1,8 @@
-function client2()
+function client3()
 
     %host = '192.168.1.24';
     host = 'www.swaytech.biz';
-    port = 1091;
+    port = 1024;
 
 for j = 1 : 100
     u = udp( host, port );

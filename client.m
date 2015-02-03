@@ -1,8 +1,7 @@
 function client()
 
-    host = '192.168.1.24';
-    %host = 'www.swaytech.biz';
-    port = 1091;
+    host = 'www.swaytech.biz';
+    port = 1024;
     obj = tcpip( host, port );
     fopen( obj );
     
