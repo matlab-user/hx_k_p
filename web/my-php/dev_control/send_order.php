@@ -24,7 +24,7 @@
 		echo 'Unable to get socket option: '. socket_strerror(socket_last_error()).PHP_EOL;
 	elseif( $rval!==0 )
 		echo 'SO_REUSEADDR is set on socket !'.PHP_EOL;
-	socket_set_option( $socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>4, "usec"=>0 ) );
+	socket_set_option( $socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>6, "usec"=>0 ) );
 
 	$ok = socket_bind( $socket, '0.0.0.0', 0 );
 	if( $ok===false ) {

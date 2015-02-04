@@ -7,9 +7,6 @@
 	$mysql_pass = 'blue';				// 数据库访问密钥
 	$port = 1024;
 	
-	//parse_data( '[s001,0,12,1,2,3,4]' );
-	//exit;
-	
 START:
 	$socket = socket_create( AF_INET, SOCK_DGRAM, SOL_UDP );
 	if( $socket===false ) {
@@ -23,7 +20,7 @@ START:
 	elseif( $rval!==0 )
 		echo 'SO_REUSEADDR is set on socket !'.PHP_EOL;
 		
-	socket_set_option( $socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>2, "usec"=>0 ) );
+	socket_set_option( $socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>6, "usec"=>0 ) );
 
 	$ok = socket_bind( $socket, '0.0.0.0', $port );
 	if( $ok===false ) {
@@ -92,7 +89,7 @@ START:
 								if( $buf==='OK' )
 									$msg = 'OK';
 							}
-							
+						
 						LP1:
 							echo $msg."\n";
 							socket_sendto( $socket, $msg, strlen($msg), 0, $to_ip, $to_port ); 						
