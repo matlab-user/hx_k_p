@@ -27,8 +27,8 @@ function init() {
 	p_flot.height( p_flot.width()*0.52 );
 	
 	dev.p_plot = add_flot( 'p_flot' );
-	dev.f_plot = add_flot( 'temp_flot' );
-	dev.temp_plot = add_flot( 'f_flot' );
+	dev.f_plot = add_flot( 'f_flot' );
+	dev.temp_plot = add_flot( 'temp_flot' );
 	dev.r_plot = add_flot( 'r_flot' );
 	
 	$(".fdiv").bind("plothover", function (event, pos, item) {
