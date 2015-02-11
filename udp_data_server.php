@@ -94,6 +94,10 @@ START:
 							echo $msg."\n";
 							socket_sendto( $socket, $msg, strlen($msg), 0, $to_ip, $to_port ); 						
 							break;
+						
+						case 'N':
+							parse_N( $buf );
+							break;
 							
 						default:
 							break;
@@ -150,6 +154,25 @@ START:
 			$gid = $segs[0];
 			$cmd = '['.$segs[1].']';
 			//echo $cmd."\n";
+			//var_dump( $segs );
+			//echo "\n";
+		}
+	}
+	
+// N[gid,v_name,th1,th2]
+	function parse_N( $data_str ) {
+		$mid_str = explode( "[", $data_str );
+		$mid_str = explode( "]", $mid_str[1] );
+		if( count($mid_str)>0 ) {
+			$segs = explode(",", $mid_str[0] );
+			
+			$gid = $segs[0];
+			$v_name = $segs[1];
+			$th1 = $segs[2];
+			$th2 = $segs[3];
+			
+			save_N( $gid, $v_name, $th1, $th2 );
+			//echo count($segs)."\n";
 			//var_dump( $segs );
 			//echo "\n";
 		}
@@ -250,4 +273,18 @@ START:
 		mysql_close($con);
 	}
 
+	function save_N( $gid, $v_name, $th1, $th2 ) {
+		global $mysql_user, $mysql_pass;
+		$con = connect_mysql( $mysql_user, $mysql_pass );
+		if( empty($con) )
+			return;
+		
+		$sql_str = sprintf( "INSERT INTO hx_k_db.normal_t SET gid='%s', v_name='%s', th1=%s, th2=%s", $gid, $v_name, $th1, $th2 );
+		$res = mysql_query( $sql_str, $con );
+		
+		$sql_str = sprintf( "UPDATE hx_k_db.normal_t SET th1=%s, th2=%s WHERE gid='%s' AND v_name='%s'", $th1, $th2, $gid, $v_name );
+		$res = mysql_query( $sql_str, $con );
+		
+		mysql_close($con);
+	}
 ?>

@@ -1,11 +1,13 @@
 function client4()
 
-    %host = '192.168.31.139';
-    host = 'www.swaytech.biz';
+    host = '192.168.1.100';
+    %host = 'www.swaytech.biz';
     port = 1024;
 
     u = udp( host, port );
     fopen( u );    
+	fwrite( u, 'N[s001,f,3.6,29]' );
+	
     fwrite( u, 'I[s002]' );
     disp('send I ok');
     
