@@ -32,6 +32,15 @@ CREATE TABLE IF NOT EXISTS hx_k_db.data_t (
 	PRIMARY KEY ( `id` )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS hx_k_db.normal_t (
+	`gid` CHAR(32) DEFAULT '',
+	`v_name` VARCHAR(32) DEFAULT '',	
+	`valid` BOOLEAN DEFAULT 1,
+	`th1` DOUBLE DEFAULT 0,
+	`th2` DOUBLE DEFAULT 0,
+	PRIMARY KEY ( `gid`, `v_name` )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 INSERT INTO hx_k_db.user_t ( id, name, passwd, type ) VALUES ( 1, 'admin', MD5('adminadmin'), 'admin' );
 
 /*-------------------------------------------------------------------------------------------------------------------

@@ -10,6 +10,15 @@
 		.f_plot
 		.temp_plot
 		.r_plot
+		.p_normal_th1
+		.p_normal_th2
+		.t_normal_th1
+		.t_normal_th2
+		.f_normal_th1
+		.f_normal_th2
+		.new_p		//最新压力值
+		.new_f		
+		.new_t
 	
 	user.name
 		.type  1-admin
@@ -48,9 +57,15 @@ function init() {
 	});
 	
 	update();
+	
+	$('#alarm_close').click( function() { $('#alarm_div').hide(); } );
+	$('#alarm_div').hide();
 }
 
 function update() {
+	
+	update_ths();
+	
 	var lt = dev.t[dev.t.length-1];
 	$.post( 'my-php/data_show/get_data.php',{'g1':dev.gid,'t':lt}, function( data ) {
 		if( parse_xml(data) ) {
@@ -74,7 +89,73 @@ function update() {
 		}
 	} );
 	
-	setTimeout( "update()", 30*1000 );
+	check_normal();
+				
+	setTimeout( "update()", 5*1000 );
+}
+
+function update_ths() {
+	
+	$.post( 'my-php/dev_control/get_normal.php',{'gid':dev.gid},function(data) {
+		var ths = JSON.parse( data );
+		if( ths.pth1!==undefined ) {
+			if( dev.p_normal_th1!=ths.pth1 )
+				dev.p_normal_th1 = parseFloat( ths.pth1 );
+		}
+		if( ths.pth2!==undefined ) {
+			if( dev.p_normal_th2!=ths.pth2 )
+				dev.p_normal_th2 = parseFloat( ths.pth2 );
+		}
+		
+		if( ths.tth1!==undefined ) {
+			if( dev.t_normal_th1!=ths.tth1 )
+				dev.t_normal_th1 = parseFloat( ths.tth1 );
+		}
+		if( ths.tth2!==undefined ) {
+			if( dev.t_normal_th2!=ths.tth2 )
+				dev.t_normal_th2 = parseFloat( ths.tth2 );
+		}
+		
+		if( ths.fth1!==undefined ) {
+			if( dev.f_normal_th1!=ths.fth1 )
+				dev.f_normal_th1 = parseFloat( ths.fth1 );
+		}
+		if( ths.fth2!==undefined ) {
+			if( dev.f_normal_th2!=ths.fth2 )
+				dev.f_normal_th2 = parseFloat( ths.fth2 );
+		}
+	} );
+}
+
+function check_normal() {
+
+	var sig = 0;
+	
+	if( dev.new_t<=dev.t_normal_th1 || dev.new_t>=dev.t_normal_th2 ) {
+		sig = 1;
+		$('#t_alarm_show').text('温度异常');
+	}
+	else 
+		$('#t_alarm_show').text('');
+
+	if( dev.new_p<=dev.p_normal_th1 || dev.new_p>=dev.p_normal_th2 ) {
+		sig = 1;
+		$('#p_alarm_show').text('压力异常');
+	}
+	else 
+		$('#p_alarm_show').text('');
+	
+	if( dev.new_f<=dev.f_normal_th1 || dev.new_f>=dev.f_normal_th2 ) {
+		sig = 1;
+		$('#f_alarm_show').text('流量异常');
+	}
+	else 
+		$('#f_alarm_show').text('');
+	
+	if( sig!=0 )
+		$('#alarm_div').show();
+	else
+		$('#alarm_div').hide();
 }
 
 function add_flot( flot_holder ) {
@@ -238,18 +319,21 @@ function update_latest_value() {
 	var vl = dev.p.length;
 	if( vl>0 ) {
 		$('#pv').html( dev.p[vl-1].toFixed(2) );
+		dev.new_p = dev.p[vl-1];
 		$('#pvt').html( t_str );
 	}
 		
 	vl = dev.f.length;
 	if( vl>0 ) {
 		$('#fv').html( dev.f[vl-1].toFixed(2) );
+		dev.new_f = dev.f[vl-1];
 		$('#fvt').html( t_str );
 	}
 		
 	vl = dev.temp.length;
 	if( vl>0 ) {
 		$('#tv').html( dev.temp[vl-1].toFixed(2) );
+		dev.new_t = dev.temp[vl-1];
 		$('#tvt').html( t_str );
 	}
 		

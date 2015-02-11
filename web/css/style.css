@@ -77,3 +77,5 @@ div.flot_div .fdiv{padding:10px 20px;max-height:300px}
 div.flot_div .fdiv:nth-child(odd){background:#fdfdfd}
 
 #tooltip{position:absolute;border:1px solid rgb(255, 221, 221);padding:2px;opacity:0.8;top:470px;left:472px;display:block;background-color:rgb(255, 238, 238)}
+
+#alarm_close:hover{background:rgba(255,255,255,0.4);}
