@@ -6,8 +6,14 @@ function client4()
 
     u = udp( host, port );
     fopen( u );    
-	fwrite( u, 'N[s001,f,3.6,29]' );
-	
+	%fwrite( u, 'N[s001,f,3.6,29]' );
+    fwrite( u, 'G[s001]');
+    res = fread( u, 100 );
+    char( res' )
+    fclose( u );
+    delete( u );
+    return;
+    
     fwrite( u, 'I[s002]' );
     disp('send I ok');
     

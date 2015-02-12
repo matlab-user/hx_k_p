@@ -98,6 +98,12 @@ START:
 						case 'N':
 							parse_N( $buf );
 							break;
+						
+						case 'G':
+							$gid = parse_I( $buf ); 
+							$n_str = get_normal( $gid );
+							socket_sendto( $socket, $n_str, strlen($n_str), 0, $to_ip, $to_port ); 			
+							break;
 							
 						default:
 							break;
@@ -286,5 +292,43 @@ START:
 		$res = mysql_query( $sql_str, $con );
 		
 		mysql_close($con);
+	}
+	
+	function get_normal( $gid ) {
+		global $mysql_user, $mysql_pass;
+		$con = connect_mysql( $mysql_user, $mysql_pass );
+		if( empty($con) )
+			return;
+		
+		$res_str = '[';
+		
+		$sql_str = sprintf( "SELECT th1, th2 FROM hx_k_db.normal_t WHERE gid='%s' AND v_name='%s'", $gid, 'p' );
+		$res = mysql_query( $sql_str, $con );
+		if( $row = mysql_fetch_array($res) )
+			$res_str .= $row[0].','.$row[1].',';
+		else
+			$res_str .= '-,-,';
+		mysql_free_result( $res );
+	
+		$sql_str = sprintf( "SELECT th1, th2 FROM hx_k_db.normal_t WHERE gid='%s' AND v_name='%s'", $gid, 't' );
+		$res = mysql_query( $sql_str, $con );
+		if( $row = mysql_fetch_array($res) )
+			$res_str .= $row[0].','.$row[1].',';
+		else
+			$res_str .= '-,-,';
+		mysql_free_result( $res );
+		
+		$sql_str = sprintf( "SELECT th1, th2 FROM hx_k_db.normal_t WHERE gid='%s' AND v_name='%s'", $gid, 'f' );
+		$res = mysql_query( $sql_str, $con );
+		if( $row = mysql_fetch_array($res) )
+			$res_str .= $row[0].','.$row[1];
+		else
+			$res_str .= '-,-';
+		mysql_free_result( $res );
+		
+		mysql_close($con);
+		
+		$res_str .= ']';
+		return $res_str;
 	}
 ?>
