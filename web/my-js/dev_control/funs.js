@@ -9,6 +9,8 @@ function init() {
 	$('#f_normal_set_a').click( function() { f_normal_set(); } );
 	$('#t_normal_set_a').click( function() { t_normal_set(); } );
 
+	$('#msg_send').click( function() { msg_send(); } );
+	
 	// 获取设备正常范围值
 	update_ths();
 	
@@ -136,6 +138,14 @@ function f_normal_set() {
 	$.post( 'my-php/dev_control/set_normal.php',{'gid':dev.gid,'v_name':'f','th1':val1,'th2':val2} );	
 }
 
+function msg_send() {
+	var val = $('#msg').val();
+	
+	if( val.length<=0 )
+		return;
+
+	send_order( 'msg_send', val );
+}
 /*
 	order - open, close, p_set, f_set, t_set
 	最终指令为：S[guid,order,para]
@@ -170,8 +180,12 @@ function send_order( order, para ) {
 			order_str += 'set f ' + arguments[1]+']';
 			res_h = $('#f_res');
 			break;
+		case 'msg_send':
+			order_str += 'set m ' + arguments[1]+']';
+			res_h = $('#msg_res');
+			break;
 	}
-	
+	console.log( order_str );
 	$.post( 'my-php/dev_control/send_order.php',{'dev':dev.gid,'order':order_str},function(data) {
 		switch( data ) {
 			case'OK':

@@ -1,23 +1,23 @@
 function client4()
 
-    host = '192.168.1.100';
+    host = '182.92.218.131';
     %host = 'www.swaytech.biz';
     port = 1024;
 
     u = udp( host, port );
     fopen( u );    
 	%fwrite( u, 'N[s001,f,3.6,29]' );
-    fwrite( u, 'G[s001]');
-    res = fread( u, 100 );
-    char( res' )
-    fclose( u );
-    delete( u );
-    return;
+%     fwrite( u, 'G[s001]');
+%     res = fread( u, 100 );
+%     char( res' )
+%     fclose( u );
+%     delete( u );
+%     return;
     
     fwrite( u, 'I[s002]' );
     disp('send I ok');
     
-    fwrite( u, 'S[s002,open]' );
+%    fwrite( u, 'S[s002,open]' );
     
     buf = '';
     while 1
@@ -40,7 +40,7 @@ function client4()
 %     id = token;
     
     %fwrite( u, strcat('R[s002,',id,',OK]') );
-    pause( 4 );
+    %pause( 4 );
     fwrite( u, 'OK' );
     fclose( u );
     delete( u );
